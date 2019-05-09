@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+    h2.page-header= title
+
+    form(method="post", action="/elections/"+electionId+"/choices/create")
+        .form-group
+            label Choice Text
+            input.form-control(name="choicetext", type="text", placeholder="Enter Choice Text ", required="True")
+        .form-group
+            input.form-control.btn.btn-success(type="submit",value="submit")

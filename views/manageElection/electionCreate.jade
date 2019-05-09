@@ -1,0 +1,62 @@
+extends ../layout
+
+block content
+    h2.page-header= title
+
+    if errors
+        p=errors
+        hr
+        each error, i in errors
+            p(style='color: #a70000', align='center')=error.msg
+
+    form(method="post", action="/elections/create")
+        .form-group
+            label Election Name
+            if electionObj
+                if electionObj.name
+                    input.form-control(name="electionName", type="text", placeholder="Enter election name", required="True" value=electionObj.name)
+                else
+                    input.form-control(name="electionName", type="text", placeholder="Enter election name", required="True")
+            else
+                input.form-control(name="electionName", type="text", placeholder="Enter election name", required="True")
+
+        .form-group
+            label Election Start Date
+            if electionObj
+                if electionObj.startDate
+                    input.form-control(name="electionStartDate", type="date", placeholder="Enter election start date", required="True" value=electionObj.startDate)
+                else
+                    input.form-control(name="electionStartDate", type="date", placeholder="Enter election start date", required="True")
+            else
+                input.form-control(name="electionStartDate", type="date", placeholder="Enter election start date", required="True")
+
+        .form-group
+            label Election Start Time
+            if electionObj
+                if electionObj.startTime
+                    input.form-control(name="electionStartTime", type="time", placeholder="Enter election start time", required="True" value=electionObj.startTime)
+                else
+                    input.form-control(name="electionStartTime", type="time", placeholder="Enter election start time", required="True")
+            else
+                input.form-control(name="electionStartTime", type="time", placeholder="Enter election start time", required="True")
+
+
+        .form-group
+            label Election End Date
+            if electionObj
+                if electionObj.endDate
+                    input.form-control(name="electionEndDate", type="date", placeholder="Enter election end date", required="True" value=electionObj.endDate)
+                else
+                    input.form-control(name="electionEndDate", type="date", placeholder="Enter election end date", required="True")
+            else
+                input.form-control(name="electionEndDate", type="date", placeholder="Enter election end date", required="True")
+
+        .form-group
+            label Election End Time
+            if electionObj && electionObj.endTime
+                input.form-control(name="electionEndTime", type="time", placeholder="Enter election end time", required="True")
+            else
+                input.form-control(name="electionEndTime", type="time", placeholder="Enter election end time", required="True")
+
+        .form-group
+            input.form-control.btn.btn-success(type="submit",value="submit")
