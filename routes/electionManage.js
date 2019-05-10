@@ -128,6 +128,7 @@ router.get('/:electionId/edit', function (req, res) {
     });
 });
 
+
 router.post('/:electionId/edit', function (req, res) {
     var electionName = req.body.electionName;
     var electionStartTime = req.body.electionStartTime;
@@ -148,7 +149,7 @@ router.post('/:electionId/edit', function (req, res) {
 
     if (errors) {
         res.render('manageElection/electionCreate', {
-            title: 'create election',
+            title: 'editing election',
             errors: errors
         })
     } else {
@@ -171,8 +172,8 @@ router.post('/:electionId/edit', function (req, res) {
         d2.setUTCSeconds(0);
 
         var options = {
-            method: "POST",
-            uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/update",
+            method: "PUT",
+            uri: electionManagerServiceURL + "/elections/update",
             json: {
                 "id": req.params.electionId,
                 "name": electionName,
@@ -241,7 +242,8 @@ router.get('/:electionId/remove', function (req, res) {
 router.get('/all', function (req, res) {
     request(electionManagerServiceURL + '/elections/all', function (error, response, body) {
         if (response.statusCode == 200) {
-            res.render('manageElection/electionsAll', {title: "all elections", data: body});
+            var bodyJSON = JSON.parse(body);
+            res.render('manageElection/electionsAll', {title: "all elections", elections: bodyJSON["data"]});
         }
         else{
             res.render("manageElection/error",{title: "error receiving all of the elections", error:body});
@@ -265,8 +267,8 @@ router.post("/:electionId/choices/create", function (req, res) {
     console.log(errors);
 
     if (errors) {
-        res.render('manageElection/electionCreate', {
-            title: 'create election',
+        res.render('manageElection/electionChoiceCreate', {
+            title: "adding choices for election " + req.params.electionId,
             errors: errors
         })
     } else {
@@ -312,6 +314,7 @@ router.get('/:electionId/choices/:choiceId/edit', function (req,res) {
     })
 });
 
+
 router.post('/:electionId/choices/:choiceId/edit', function (req, res) {
     var choicetext = req.body.choicetext;
     req.checkBody('choicetext', "choice text should not be longer than 50").isLength({min: 1, max: 50});
@@ -320,14 +323,14 @@ router.post('/:electionId/choices/:choiceId/edit', function (req, res) {
     console.log(errors);
 
     if (errors) {
-        res.render('manageElection/electionCreate', {
-            title: 'create election',
+        res.render('manageElection/electionChoiceCreate', {
+            title: 'editing election choice',
             errors: errors
         })
     } else {
 
         var options = {
-            method: "POST",
+            method: "PUT",
             uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/"+ req.params.choiceId +"/update",
             json: {
                 "choice": choicetext.toString(),
@@ -341,7 +344,7 @@ router.post('/:electionId/choices/:choiceId/edit', function (req, res) {
             else{
                 res.render('manageElection/error', {
                     title: "adding choices for election " + req.params.electionId,
-                    electionId: req.params.electionId, error:body
+                    electionId: req.params.electionId, error:error
                 });
             }
         });
@@ -360,12 +363,12 @@ router.get('/:electionId/choices/:choiceId/remove', function (req, res) {
     request(options, function (error, response, body) {
         if (response.statusCode == 200){
             var options = {
-                uri : electionManagerServiceURL + "elections/"+ req.params.electionId +"/choices/"+ req.params.choiceId +"/remove"
+                uri : electionManagerServiceURL + "/elections/"+ req.params.electionId +"/choices/"+ req.params.choiceId +"/remove"
             };
             request(options,function (error, response, body) {
                 if (response.statusCode == 200){
-                    res.location("elections/"+ req.params.electionId +"/choices/"+ req.params.choiceId+"/all");
-                    res.redirect("elections/"+ req.params.electionId +"/choices/"+ req.params.choiceId+"/all");
+                    res.location("/elections/"+ req.params.electionId +"/choices/all");
+                    res.redirect("/elections/"+ req.params.electionId +"/choices/all");
                 }
                 else{
                     console.log("error calling the remove election choice API");
@@ -388,10 +391,14 @@ router.get('/:electionId/choices/:choiceId/remove', function (req, res) {
 });
 
 router.get("/:electionId/choices/all", function (req, res) {
-    request(electionManagerServiceURL + 'elections/' + req.params.electionId + '/choices/all', function (error, response, body) {
+    request(electionManagerServiceURL + '/elections/' + req.params.electionId + '/choices/all', function (error, response, body) {
         //proper response handling
         if (response.statusCode == 200) {
-            res.render('manageElection/getAllElectionChoices', {title: "all elections", data: body});
+            var bodyJSON = JSON.parse(body);
+            console.log(bodyJSON["data"]);
+            res.render('manageElection/getAllElectionChoices',
+                {title: "all choices for election "+req.params.electionId , choices : bodyJSON["data"] ,
+                    electionId: req.params.electionId});
         } else {
             console.log("error calling the api");
             res.render('manageElection/error', {title: "all elections", error: body});

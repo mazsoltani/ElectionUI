@@ -3,4 +3,15 @@ extends ../layout
 block content
     h2.page-header= title
 
-    p=data
+    if elections
+        each election in elections
+            div
+                div=election.name
+
+                div
+                    a(href="/elections/"+election.id+"/choices/all") see choices for this election
+                div
+                    a(href="/elections/"+election.id+"/edit") edit
+                div
+                    a(href="/elections/"+election.id+"/remove") remove
+                hr

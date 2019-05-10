@@ -4,12 +4,10 @@ block content
     h2.page-header= title
 
     if errors
-        p=errors
-        hr
         each error, i in errors
             p(style='color: #a70000', align='center')=error.msg
 
-    form(method="post", action="/elections/create")
+    form(method="post")
         .form-group
             label Election Name
             if electionObj

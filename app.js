@@ -14,7 +14,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
-// var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var electionManageRouter = require('./routes/electionManage');
 var electionPortalRouter = require('./routes/electionPortal');
@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
 // Express-Validator
 app.use(expressValidator());
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/elections', electionManageRouter);
 app.use('/portal', electionPortalRouter);

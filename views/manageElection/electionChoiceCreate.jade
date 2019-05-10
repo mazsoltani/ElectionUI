@@ -3,7 +3,11 @@ extends ../layout
 block content
     h2.page-header= title
 
-    form(method="post", action="/elections/"+electionId+"/choices/create")
+    if errors
+        each error, i in errors
+            p(style='color: #a70000', align='center')=error.msg
+
+    form(method="post")
         .form-group
             label Choice Text
             if choiceObj && choiceObj.choice
