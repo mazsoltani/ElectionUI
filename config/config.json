@@ -1,0 +1,11 @@
+{
+  "authServiceIP": "",
+  "authServicePort": "",
+
+  "electionManagerServiceIP": "",
+  "electionManagerServicePort": "",
+
+  "electionPortalServiceIP": "",
+  "electionPortalServicePort": ""
+
+}

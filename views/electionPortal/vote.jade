@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+    h2.page-header= title
+    p= election.name
+
+    form(method="post")
+        each choice in choices
+            div.form-group
+                label(for=choice.choice + "_Id")=choice.choice
+                input(id=choice.choice + "_Id" name="electionChoiceId" type="radio" value= choice.id)
+        .form-group
+            input.form-control.btn.btn-success(type="submit", value="submit")

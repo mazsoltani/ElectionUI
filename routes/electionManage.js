@@ -3,8 +3,11 @@ var router = express.Router();
 var request = require('request');
 const {check} = require('express-validator/check')
 
-const electionManagerServiceIP = "127.0.0.1";
-const electionManagerServicePort = "8080";
+const conf = require('./../config/config');
+
+const electionManagerServiceIP = conf.electionManagerServiceIP;
+const electionManagerServicePort = conf.electionManagerServicePort;
+
 const electionManagerServiceURL = "http://" + electionManagerServiceIP + ":" +  electionManagerServicePort;
 
 function formatNumber(myNumber){
