@@ -54,7 +54,7 @@ block content
         .form-group
             label Election End Time
             if electionObj && electionObj.endTime
-                input.form-control(name="electionEndTime", type="time", placeholder="Enter election end time", required="True")
+                input.form-control(name="electionEndTime", type="time", placeholder="Enter election end time", required="True" value= electionObj.endTime)
             else
                 input.form-control(name="electionEndTime", type="time", placeholder="Enter election end time", required="True")
 
