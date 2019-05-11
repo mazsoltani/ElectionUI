@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="28476235-0090-4d37-a768-5b7a62d0f82a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/electionManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/electionManage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.jade" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layout.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.jade" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/manageElection/electionChoiceCreate.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/manageElection/electionChoiceCreate.jade" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/manageElection/electionCreate.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/manageElection/electionCreate.jade" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/electionPortal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/electionPortal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/manageElection/electionsAll.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/manageElection/electionsAll.jade" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade" beforeDir="false" afterPath="$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade" afterDir="false" />
     </list>
@@ -23,31 +17,56 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/electionManage.js">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/electionPortal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="371" column="81" selection-start-line="371" selection-start-column="81" selection-end-line="371" selection-end-column="81" />
+            <state relative-caret-position="203">
+              <caret line="72" column="53" lean-forward="true" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
               <folding>
-                <element signature="n#!!block;n#formatNumber#0" />
-                <element signature="e#556#636#0" />
-                <element signature="e#683#3488#0" />
-                <element signature="e#3544#4933#0" />
-                <element signature="e#7900#9215#0" />
-                <element signature="e#9258#9702#0" />
-                <element signature="e#10015#11197#0" />
-                <element signature="e#14848#15332#0" />
+                <element signature="e#813#2292#0" />
+                <element signature="e#869#987#0" />
+                <element signature="e#1043#2288#0" />
+                <element signature="e#1085#2076#0" />
+                <element signature="e#1223#1373#0" />
+                <element signature="e#1437#2064#0" />
+                <element signature="e#1487#1820#0" />
+                <element signature="e#1621#1799#0" />
+                <element signature="e#1826#2050#0" />
+                <element signature="e#2082#2282#0" />
+                <element signature="e#2419#2425#0" />
+                <element signature="e#2559#2696#0" />
+                <element signature="e#3060#3321#0" />
+                <element signature="e#3380#5060#0" />
+                <element signature="e#3442#4688#0" />
+                <element signature="e#3573#3770#0" />
+                <element signature="e#3841#4656#0" />
+                <element signature="e#3915#4120#0" />
+                <element signature="e#4126#4618#0" />
+                <element signature="e#4338#4574#0" />
+                <element signature="e#4694#5034#0" />
+                <element signature="e#4842#5002#0" />
+                <element signature="e#4392#4588#0" />
+                <element signature="e#4656#4708#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/manageElection/electionsAll.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="2" selection-start-column="2" selection-end-column="2" />
+            <state relative-caret-position="95">
+              <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -70,6 +89,8 @@
       <find>electionPortalRouter</find>
       <find>redirec</find>
       <find>electionPortalServiceIP</find>
+      <find>electionManagerServiceURL</find>
+      <find>electionPortalServiceURL</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -87,23 +108,23 @@
         <option value="$PROJECT_DIR$/views/manageElection/error.jade" />
         <option value="$PROJECT_DIR$/views/electionPortal/vote.jade" />
         <option value="$PROJECT_DIR$/views/electionPortal/thanksForVoting.jade" />
-        <option value="$PROJECT_DIR$/routes/electionPortal.js" />
         <option value="$PROJECT_DIR$/config/config.json" />
         <option value="$PROJECT_DIR$/views/layout.jade" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/index.jade" />
-        <option value="$PROJECT_DIR$/views/manageElection/electionsAll.jade" />
         <option value="$PROJECT_DIR$/views/manageElection/electionCreate.jade" />
         <option value="$PROJECT_DIR$/views/manageElection/electionChoiceCreate.jade" />
-        <option value="$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade" />
         <option value="$PROJECT_DIR$/routes/electionManage.js" />
+        <option value="$PROJECT_DIR$/routes/electionPortal.js" />
+        <option value="$PROJECT_DIR$/views/manageElection/electionsAll.jade" />
+        <option value="$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="293" />
-    <option name="y" value="53" />
-    <option name="width" value="1400" />
+    <option name="x" value="152" />
+    <option name="y" value="27" />
+    <option name="width" value="1617" />
     <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -118,16 +139,6 @@
             <path>
               <item name="ElectionUIService" type="b2602c69:ProjectViewProjectNode" />
               <item name="ElectionUIService" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ElectionUIService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ElectionUIService" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ElectionUIService" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ElectionUIService" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ElectionUIService" type="b2602c69:ProjectViewProjectNode" />
@@ -190,18 +201,18 @@
       <updated>1557150130529</updated>
       <workItem from="1557150132891" duration="3950000" />
       <workItem from="1557211364848" duration="47979000" />
-      <workItem from="1557487823862" duration="6370000" />
+      <workItem from="1557487823862" duration="9519000" />
+      <workItem from="1557584247197" duration="2361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58299000" />
+    <option name="totallyTimeSpent" value="63809000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="27" width="1850" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14887795" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19704433" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -299,20 +310,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/electionPortal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/layout.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -337,13 +334,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/manageElection/electionsAll.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="98" selection-start-line="11" selection-start-column="98" selection-end-line="11" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/manageElection/electionChoiceCreate.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -358,27 +348,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade">
+    <entry file="file://$PROJECT_DIR$/config/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="2" selection-start-column="2" selection-end-column="2" />
+        <state relative-caret-position="152">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/electionManage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="371" column="81" selection-start-line="371" selection-start-column="81" selection-end-line="371" selection-end-column="81" />
+        <state relative-caret-position="49">
+          <caret line="7" column="62" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="62" />
           <folding>
             <element signature="n#!!block;n#formatNumber#0" />
             <element signature="e#556#636#0" />
             <element signature="e#683#3488#0" />
             <element signature="e#3544#4933#0" />
-            <element signature="e#7900#9215#0" />
-            <element signature="e#9258#9702#0" />
-            <element signature="e#10015#11197#0" />
-            <element signature="e#14848#15332#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/electionPortal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="72" column="53" lean-forward="true" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+          <folding>
+            <element signature="e#813#2292#0" />
+            <element signature="e#869#987#0" />
+            <element signature="e#1043#2288#0" />
+            <element signature="e#1085#2076#0" />
+            <element signature="e#1223#1373#0" />
+            <element signature="e#1437#2064#0" />
+            <element signature="e#1487#1820#0" />
+            <element signature="e#1621#1799#0" />
+            <element signature="e#1826#2050#0" />
+            <element signature="e#2082#2282#0" />
+            <element signature="e#2419#2425#0" />
+            <element signature="e#2559#2696#0" />
+            <element signature="e#3060#3321#0" />
+            <element signature="e#3380#5060#0" />
+            <element signature="e#3442#4688#0" />
+            <element signature="e#3573#3770#0" />
+            <element signature="e#3841#4656#0" />
+            <element signature="e#3915#4120#0" />
+            <element signature="e#4126#4618#0" />
+            <element signature="e#4338#4574#0" />
+            <element signature="e#4694#5034#0" />
+            <element signature="e#4842#5002#0" />
+            <element signature="e#4392#4588#0" />
+            <element signature="e#4656#4708#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/manageElection/electionsAll.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/manageElection/getAllElectionChoices.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
         </state>
       </provider>
     </entry>

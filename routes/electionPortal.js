@@ -12,7 +12,7 @@ const electionManagerServicePort = conf.electionManagerServicePort;
 const electionManagerServiceURL = "http://" + electionManagerServiceIP + ":" + electionManagerServicePort;
 
 const electionPortalServiceIP = conf.electionPortalServiceIP;
-const electionPortalServicePort = conf.electionManagerServicePort;
+const electionPortalServicePort = conf.electionPortalServicePort;
 const electionPortalServiceURL = "http://" + electionPortalServiceIP + ":" + electionPortalServicePort;
 
 
@@ -29,7 +29,7 @@ router.get('/vote/elections/:electionId/', function (req, res, next) {
             //getting choices of the election
             var options = {
                 method: "GET",
-                uri: electionPortalServiceURL + "/elections/" + req.params.electionId + "/choices/all"
+                uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/all"
             };
             request(options, function (error, response, body) {
                 if (response.statusCode == 200) {
@@ -53,39 +53,69 @@ router.get('/vote/elections/:electionId/', function (req, res, next) {
 });
 
 router.post('/vote/elections/:electionId/', function (req, res, next) {
+    var electionId = req.body.electionId;
     var choiceId = req.body.electionChoiceId;
+    //todo
+    //geting the user id from Auth
+    var voterUserId = 3;
 
     //checking if the choiceId is valid
-    var options = {};
-    request(options, function (error, response, body) {
-        if (response.statusCode == 200) {
-            //submitting the vote
-            var options = {};
-            request(options, function (error, response, body) {
-                if (response.statusCode == 200) {
-                    //incrementing the total vote count of election manager
-                    var options = {};
-                    request(options, function (error, response, body) {
-                        if (response.statusCode == 200) {
-                            res.location('/portal/vote/thanks');
-                            res.redirect('/portal/vote/thanks');
-                        } else {
-                            console.log("error when incrementing the number of total votes for election manager");
-                            res.render('manageElection/error', {title: "error when incrementing the number of total votes for election manager", error: body});
-                        }
-                    });
-                } else {
-                    console.log("error when submitting the vote");
-                    res.render('manageElection/error', {title: "error when submitting the vote", error: body});
-                }
-            });
-        } else {
-            console.log("error, choice not found for this election");
-            res.render('manageElection/error', {title: "error, choice not found for this election", error: body});
-        }
-    });
-});
+    request({
+            method: "GET",
+            uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/" + choiceId + "/get"
+        },
+        function (error, response, body) {
+            if (response.statusCode == 200) {
 
+                // should also check if the user has already voted
+                request({method:"GET", uri: electionPortalServiceURL + "/allowedToVote", qs:{ voterUserId: voterUserId, electionId : electionId } },
+                    function (error, response, body) {
+                    if (response.statusCode == 200) {
+                        // submiting the vote
+                        request({
+                                method: "GET",
+                                uri: electionPortalServiceURL + "/saveVote",
+                                qs: {electionId: req.params.electionId, choiceNumber: choiceId, voterUserId: voterUserId}
+                            },
+                            function (error, response, body) {
+                                if (response.statusCode == 200) {
+
+                                    //incrementing the total vote count of election manager
+                                    request({
+                                            method: "GET",
+                                            uri: electionManagerServiceURL + "/elections/votes/increment",
+                                        },
+                                        function (error, response, body) {
+                                            if (response.statusCode == 200) {
+                                                res.location('/portal/vote/thanks');
+                                                res.redirect('/portal/vote/thanks');
+                                            } else {
+                                                console.log("error when incrementing the number of total votes for election manager");
+                                                res.render('manageElection/error', {
+                                                    title: "error when incrementing the number of total votes for election manager",
+                                                    error: body
+                                                });
+                                            }
+                                        });
+                                } else {
+                                    console.log("error when submitting the vote");
+                                    res.render('manageElection/error', {
+                                        title: "error when submitting the vote",
+                                        error: body
+                                    });
+                                }
+                            });
+                    } else {
+                        console.log("error, user has already voted!");
+                        res.render('manageElection/error', {title: "error, user has already voted!"});
+                    }
+                });
+            } else {
+                console.log("error, choice not found for this election");
+                res.render('manageElection/error', {title: "error, choice not found for this election", error: body});
+            }
+        });
+});
 
 router.get('/vote/thanks', function (req, res, next) {
     res.render("electionPortal/thanksForVoting")

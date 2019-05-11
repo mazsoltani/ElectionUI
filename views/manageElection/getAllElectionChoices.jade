@@ -2,11 +2,14 @@ extends ../layout
 
 block content
     h2.page-header= title
-
-    each choice in choices
-        p=choice.choice
-        div
-            a(href="/elections/" + electionId + "/choices/"+choice.id +"/edit") edit
-        div
-            a(href="/elections/" + electionId + "/choices/"+choice.id +"/remove") remove
-        hr
+    div
+        a(href="/election/" + electionId + "/choices/create") create a new choice for this election
+    hr
+    div
+        each choice in choices
+            p=choice.choice
+            div
+                a(href="/elections/" + electionId + "/choices/"+choice.id +"/edit") edit
+            div
+                a(href="/elections/" + electionId + "/choices/"+choice.id +"/remove") remove
+            hr
