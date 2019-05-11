@@ -19,19 +19,17 @@ const electionPortalServiceURL = "http://" + electionPortalServiceIP + ":" + ele
 router.get('/vote/elections/:electionId/', function (req, res, next) {
 
     //getting the election details
-    var options = {
+    request({
         method: "GET",
         uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/get"
-    };
-    request(options, function (error, response, body) {
+    }, function (error, response, body) {
         if (response.statusCode == 200) {
             var electionDetailsJSON = JSON.parse(body)["data"];
             //getting choices of the election
-            var options = {
+            request({
                 method: "GET",
                 uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/all"
-            };
-            request(options, function (error, response, body) {
+            }, function (error, response, body) {
                 if (response.statusCode == 200) {
                     var electionChoiceDetailsJSON = JSON.parse(body)["data"];
                     res.render('electionPortal/vote', {
