@@ -5,6 +5,8 @@ html(lang='en')
     link(href='/stylesheets/bootstrap.css', rel='stylesheet')
     link(href='/stylesheets/style.css', rel='stylesheet')
   body
+    - var is_logged_in = false
+    block var
     .navbar.navbar-default(role='navigation')
       .container
         .navbar-header
@@ -15,16 +17,16 @@ html(lang='en')
             span.icon-bar
           a.navbar-brand(href='/') FUM-Elect
         .navbar-collapse.collapse
-          ul.nav.navbar-nav
-            li(class=(title == 'Members' ? 'active' : ''))
-              a(href='/') Members
-            li(class=(title == 'Register' ? 'active' : ''))
-              a(href='/users/register') Register
-            li(class=(title == 'Login' ? 'active' : ''))
-              a(href='/users/login') Login
-          ul.nav.navbar-nav.navbar-right
-           li
-              a(href='/users/logout') Logout
+          if ! is_logged_in
+            ul.nav.navbar-nav
+              li(class=(title == 'Register' ? 'active' : ''))
+                a(href='/users/register') Register
+              li(class=(title == 'Login' ? 'active' : ''))
+                a(href='/users/login') Login
+          else
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='/users/logout') Logout
     .container
      block content
 

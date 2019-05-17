@@ -1,10 +1,26 @@
 extends layout
 
+block var
+  - is_logged_in = isLoggedIn
+
+
 block content
-  h1 Welcome to FUM election
+  h1= title
 
-  div
-    a(href="/elections/create") create a new election
+  if isLoggedIn
+    h3 welcome
+      span= userEmail
+    p= role
+    if role === "user"
+      div
+        a(href="/elections/all") show all elections
 
-  div
-    a(href="/elections/all") show all elections
+    if role === "admin"
+      h1 hi
+      div
+        a(href="/elections/create") create a new election
+
+      div
+        a(href="/elections/all") show all elections
+  else
+    p please log in for further action

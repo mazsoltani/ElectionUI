@@ -1,9 +1,13 @@
 extends ../layout
 
+block var
+    - is_logged_in = isLoggedIn
+
 block content
     h2.page-header= title
-    div
-        a(href="/elections/create") create a new election
+    if user_role === "admin"
+        div
+            a(href="/elections/create") create a new election
     hr
     div
         if elections

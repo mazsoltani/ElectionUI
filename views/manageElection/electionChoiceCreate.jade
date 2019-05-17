@@ -1,5 +1,9 @@
 extends ../layout
 
+block var
+    - is_logged_in = isLoggedIn
+
+
 block content
     h2.page-header= title
 

@@ -1,6 +1,11 @@
 extends layout
 
+block var
+  - is_logged_in = isLoggedIn
+
+
 block content
-  h1= message
+  h1 Error performing this action
+  h2= message
   h2= error.status
   pre #{error.stack}

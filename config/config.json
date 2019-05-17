@@ -1,11 +1,11 @@
 {
-  "authServiceIP": "",
-  "authServicePort": "",
+  "authServiceIP": "127.0.0.1",
+  "authServicePort": "2000",
 
   "electionManagerServiceIP": "127.0.0.1",
   "electionManagerServicePort": "8080",
 
   "electionPortalServiceIP": "127.0.0.1",
-  "electionPortalServicePort": "8090"
+  "electionPortalServicePort": "8085"
 
 }

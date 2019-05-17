@@ -1,10 +1,15 @@
 extends ../layout
 
+block var
+    - is_logged_in = isLoggedIn
+
+
 block content
     h2.page-header= title
-    div
-        a(href="/election/" + electionId + "/choices/create") create a new choice for this election
-    hr
+    if user_role === "admin"
+        div
+            a(href="/election/" + electionId + "/choices/create") create a new choice for this election
+        hr
     div
         each choice in choices
             p=choice.choice
