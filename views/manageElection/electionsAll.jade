@@ -8,17 +8,22 @@ block content
     if user_role === "admin"
         div
             a(href="/elections/create") create a new election
-    hr
+        hr
     div
         if elections
             each election in elections
                 div
                     div=election.name
 
-                    div
-                        a(href="/elections/"+election.id+"/choices/all") see choices for this election
-                    div
-                        a(href="/elections/"+election.id+"/edit") edit
-                    div
-                        a(href="/elections/"+election.id+"/remove") remove
+                    if user_role === "admin"
+                        div
+                            a(href="/elections/"+election.id+"/choices/all") see choices for this election
+                        div
+                            a(href="/elections/"+election.id+"/edit") edit
+                        div
+                            a(href="/elections/"+election.id+"/remove") remove
+
+                    else if user_role === "user"
+                        div
+                            a(href="/portal/vote/elections/"+ election.id) vote
                     hr

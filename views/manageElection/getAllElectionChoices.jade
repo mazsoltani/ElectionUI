@@ -8,7 +8,7 @@ block content
     h2.page-header= title
     if user_role === "admin"
         div
-            a(href="/election/" + electionId + "/choices/create") create a new choice for this election
+            a(href="/elections/" + electionId + "/choices/create") create a new choice for this election
         hr
     div
         each choice in choices

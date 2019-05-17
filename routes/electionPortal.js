@@ -63,11 +63,9 @@ router.get('/vote/elections/:electionId/', function (req, res, next) {
 router.post('/vote/elections/:electionId/', function (req, res, next) {
 
     if(req.is_logged_in && req.user_data["role"] == "user"){
-        var electionId = req.body.electionId;
+        var electionId = req.params.electionId;
         var choiceId = req.body.electionChoiceId;
-        //todo
-        //geting the user id from Auth
-        var voterUserId = 3;
+        var voterUserId = req.user_data["email"];
 
         //checking if the choiceId is valid
         request({

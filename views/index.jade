@@ -8,9 +8,8 @@ block content
   h1= title
 
   if isLoggedIn
-    h3 welcome
-      span= userEmail
-    p= role
+    h3 welcome #{userEmail} !
+    h4 role : #{role}
     if role === "user"
       div
         a(href="/elections/all") show all elections

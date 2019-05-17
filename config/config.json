@@ -6,6 +6,6 @@
   "electionManagerServicePort": "8080",
 
   "electionPortalServiceIP": "127.0.0.1",
-  "electionPortalServicePort": "8085"
+  "electionPortalServicePort": "8090"
 
 }
