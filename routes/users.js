@@ -65,10 +65,10 @@ router.post('/register', upload.single('profileimage'), function (req, res, next
                 url: authServiceURL + '/user/register',
                 form: {email: email, password: password}
             }, function (error, response, body) {
-                if (response.statusCode == 201) {
+                if (!error && response.statusCode == 201) {
                     res.location("/users/login");
                     res.redirect("/users/login");
-                } else {
+                } else if(!error) {
                     console.log(body);
                     errors = [{
                         location: 'body',
@@ -81,6 +81,9 @@ router.post('/register', upload.single('profileimage'), function (req, res, next
                         title: 'Register',
                         errors: errors
                     });
+                }
+                else{
+                    res.render("error", {isLoggedIn : req.is_logged_in, error: error});
                 }
             });
         }
@@ -100,14 +103,17 @@ router.post('/login', function (req, res, next) {
             form: {email: email, password: password}
         }, async function (error, response, body) {
             console.log(body);
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var jsonBody = JSON.parse(body);
                 console.log(jsonBody);
                 res.cookie("SID", jsonBody["token"], {});
                 await new Promise(resolve => setTimeout(resolve, 1200));
                 res.location('/');
                 res.redirect('/');
-            } else {
+            } else if(error){
+                res.render("error", {isLoggedIn : req.is_logged_in, error: error});
+            }
+            else{
                 errors = [{
                     location: 'body',
                     param: 'failed',
@@ -138,7 +144,7 @@ router.get('/logout', function (req, res, next) {
                 uri: authServiceURL + "/user/logout",
                 headers: {'Authorization': 'Bearer ' + token}
             }, function (error, response, body) {
-                if (response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
 
                     res.location("/");
                     res.redirect("/");
@@ -158,9 +164,5 @@ router.get('/logout', function (req, res, next) {
     }
 
 });
-
-// router.get('roles/change');
-//
-// router.post();
 
 module.exports = router;

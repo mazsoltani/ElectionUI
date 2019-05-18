@@ -82,9 +82,11 @@ router.post('/create', function (req, res) {
                     uri: electionManagerServiceURL + "/elections/save",
                     json: {"name": electionName, "startTime": d1.toJSON(), "endTime": d2.toJSON()}
                 }, function (error, response, body) {
-                    if (response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                         res.location('/elections/all');
                         res.redirect('/elections/all');
+                    } else if(error){
+                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                     } else {
                         console.log("error calling the create election API");
                         res.render('manageElection/error', {
@@ -114,7 +116,7 @@ router.get('/:electionId/edit', function (req, res) {
             uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/get",
         }, function (error, response, body) {
 
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var bodyJson = JSON.parse(body);
                 var startDateTimeString = bodyJson["data"]["startTime"];
                 var endDateTimeString = bodyJson["data"]["endTime"];
@@ -130,6 +132,8 @@ router.get('/:electionId/edit', function (req, res) {
                     endDate: d2.getFullYear() + "-" + formatNumber(d2.getUTCMonth()) + "-" + formatNumber(d2.getUTCDate())
                 };
                 res.render('manageElection/electionCreate', {isLoggedIn : req.is_logged_in,title: 'editing election', electionObj: electionObj});
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
             } else {
                 res.render('manageElection/error', {
                     isLoggedIn : req.is_logged_in,
@@ -205,10 +209,12 @@ router.post('/:electionId/edit', function (req, res) {
                     }
                 },
                 function (error, response, body) {
-                    if (response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                         res.location('/elections/all');
                         res.redirect('/elections/all');
-                    } else {
+                    }else if(error){
+                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+                    }  else {
                         console.log("error when calling the update election API");
                         res.render('manageElection/error', {
                             isLoggedIn : req.is_logged_in,
@@ -237,20 +243,24 @@ router.get('/:electionId/remove', function (req, res) {
             uri: electionManagerServiceURL + "/elections/exists",
             qs: {electionId: req.params.electionId}
         }, function (error, response, body) {
-            if (response.statusCode != 200) {
+            if (!error && response.statusCode != 200) {
                 res.render('manageElection/error', {
                     isLoggedIn : req.is_logged_in,
                     title: 'election does not exists to remove',
                     error: "election with id " + req.params.electionId + " does not exists"
                 })
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
             } else {
                 request({
                     method: "GET",
                     uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/remove"
                 }, function (error, response, body) {
-                    if (response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                         res.location('/elections/all');
                         res.redirect('/elections/all');
+                    } else if(error){
+                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                     } else {
                         console.log("error calling the remove election API");
                         res.render('manageElection/error', {
@@ -272,9 +282,11 @@ router.get('/:electionId/remove', function (req, res) {
 router.get('/all', function (req, res) {
     if (req.is_logged_in) {
         request(electionManagerServiceURL + '/elections/all', function (error, response, body) {
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var bodyJSON = JSON.parse(body);
                 res.render('manageElection/electionsAll', {isLoggedIn : req.is_logged_in,title: "all elections", elections: bodyJSON["data"], user_role : req.user_data["role"]});
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
             } else {
                 res.render("manageElection/error", {isLoggedIn : req.is_logged_in,title: "error receiving all of the elections", error: body});
             }
@@ -323,9 +335,11 @@ router.post("/:electionId/choices/create", function (req, res) {
                     "choice": choicetext.toString(),
                 }
             }, function (error, response, body) {
-                if (response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
                     res.location('/elections/' + req.params.electionId + '/choices/all');
                     res.redirect('/elections/' + req.params.electionId + '/choices/all');
+                } else if(error){
+                    res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                 } else {
                     res.render('manageElection/error', {
                         isLoggedIn : req.is_logged_in,
@@ -350,7 +364,7 @@ router.get('/:electionId/choices/:choiceId/edit', function (req, res) {
             method: "GET",
             uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/" + req.params.choiceId + "/get",
         }, function (error, response, body) {
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var bodyJson = JSON.parse(body);
                 var choiceObj = bodyJson["data"];
                 res.render("manageElection/electionChoiceCreate", {
@@ -358,7 +372,9 @@ router.get('/:electionId/choices/:choiceId/edit', function (req, res) {
                     choiceObj: choiceObj,
                     title: "editing election choice"
                 });
-            } else {
+            }else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+            }  else {
                 res.render("manageElection/error", {isLoggedIn : req.is_logged_in,title: "error editing election choice", error: body});
             }
         })
@@ -392,9 +408,11 @@ router.post('/:electionId/choices/:choiceId/edit', function (req, res) {
                     "choice": choicetext.toString(),
                 }
             }, function (error, response, body) {
-                if (response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
                     res.location('/elections/' + req.params.electionId + '/choices/all');
                     res.redirect('/elections/' + req.params.electionId + '/choices/all');
+                } else if(error){
+                    res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                 } else {
                     res.render('manageElection/error', {
                         isLoggedIn : req.is_logged_in,
@@ -423,14 +441,16 @@ router.get('/:electionId/choices/:choiceId/remove', function (req, res) {
             uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/" + req.params.choiceId + "/get",
             // qs : { electionId : req.params.electionId }
         }, function (error, response, body) {
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 request({
                     method: "GET",
                     uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/" + req.params.choiceId + "/remove"
                 }, function (error, response, body) {
-                    if (response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                         res.location("/elections/" + req.params.electionId + "/choices/all");
                         res.redirect("/elections/" + req.params.electionId + "/choices/all");
+                    } else if(error){
+                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                     } else {
                         console.log("error calling the remove election choice API");
                         res.render('manageElection/error', {
@@ -440,6 +460,8 @@ router.get('/:electionId/choices/:choiceId/remove', function (req, res) {
                         })
                     }
                 });
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
             } else {
                 console.log("error calling the remove election choice API");
                 res.render('manageElection/error', {
@@ -462,7 +484,7 @@ router.get("/:electionId/choices/all", function (req, res) {
     if(req.is_logged_in){
         request(electionManagerServiceURL + '/elections/' + req.params.electionId + '/choices/all', function (error, response, body) {
             //proper response handling
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var bodyJSON = JSON.parse(body);
                 console.log(bodyJSON["data"]);
                 res.render('manageElection/getAllElectionChoices',
@@ -473,6 +495,8 @@ router.get("/:electionId/choices/all", function (req, res) {
                         electionId: req.params.electionId,
                         user_role : req.user_data["role"]
                     });
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
             } else {
                 console.log("error calling the api");
                 res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "all elections", error: body});

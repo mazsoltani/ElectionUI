@@ -25,14 +25,14 @@ router.get('/vote/elections/:electionId/', function (req, res, next) {
             method: "GET",
             uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/get"
         }, function (error, response, body) {
-            if (response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
                 var electionDetailsJSON = JSON.parse(body)["data"];
                 //getting choices of the election
                 request({
                     method: "GET",
                     uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/all"
                 }, function (error, response, body) {
-                    if (response.statusCode == 200) {
+                    if (!error && response.statusCode == 200) {
                         var electionChoiceDetailsJSON = JSON.parse(body)["data"];
                         res.render('electionPortal/vote', {
                             isLoggedIn : req.is_logged_in,
@@ -41,12 +41,18 @@ router.get('/vote/elections/:electionId/', function (req, res, next) {
                             choices: electionChoiceDetailsJSON
                         });
 
-                    } else {
+                    }else if(error){
+                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+                    }
+                    else {
                         console.log("error getting the election choices to load vote page");
                         res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error getting the election choices", error: body});
                     }
                 });
-            } else {
+            } else if(error){
+                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+            }
+            else {
                 console.log("error getting the election details to load vote page");
                 res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error getting the election details", error: body});
             }
@@ -73,12 +79,12 @@ router.post('/vote/elections/:electionId/', function (req, res, next) {
                 uri: electionManagerServiceURL + "/elections/" + req.params.electionId + "/choices/" + choiceId + "/get"
             },
             function (error, response, body) {
-                if (response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
 
                     // should also check if the user has already voted
                     request({method:"GET", uri: electionPortalServiceURL + "/allowedToVote", qs:{ voterUserId: voterUserId, electionId : electionId } },
                         function (error, response, body) {
-                            if (response.statusCode == 200) {
+                            if (!error && response.statusCode == 200) {
                                 // submiting the vote
                                 request({
                                         method: "GET",
@@ -86,7 +92,7 @@ router.post('/vote/elections/:electionId/', function (req, res, next) {
                                         qs: {electionId: req.params.electionId, choiceNumber: choiceId, voterUserId: voterUserId}
                                     },
                                     function (error, response, body) {
-                                        if (response.statusCode == 200) {
+                                        if (!error && response.statusCode == 200) {
 
                                             //incrementing the total vote count of election manager
                                             request({
@@ -94,9 +100,11 @@ router.post('/vote/elections/:electionId/', function (req, res, next) {
                                                     uri: electionManagerServiceURL + "/elections/votes/increment",
                                                 },
                                                 function (error, response, body) {
-                                                    if (response.statusCode == 200) {
+                                                    if (!error && response.statusCode == 200) {
                                                         res.location('/portal/vote/thanks');
                                                         res.redirect('/portal/vote/thanks');
+                                                    } else if(error){
+                                                        res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                                                     } else {
                                                         console.log("error when incrementing the number of total votes for election manager");
                                                         res.render('manageElection/error', {
@@ -106,6 +114,8 @@ router.post('/vote/elections/:electionId/', function (req, res, next) {
                                                         });
                                                     }
                                                 });
+                                        } else if(error){
+                                            res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
                                         } else {
                                             console.log("error when submitting the vote");
                                             res.render('manageElection/error', {
@@ -115,12 +125,17 @@ router.post('/vote/elections/:electionId/', function (req, res, next) {
                                             });
                                         }
                                     });
-                            } else {
+                            }else if(error){
+                                res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+                            }  else {
                                 console.log("error, user has already voted!");
                                 res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error, user has already voted!"});
                             }
                         });
-                } else {
+                }else if(error){
+                    res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error ", error: error});
+                }
+                else {
                     console.log("error, choice not found for this election");
                     res.render('manageElection/error', {isLoggedIn : req.is_logged_in,title: "error, choice not found for this election", error: body});
                 }
