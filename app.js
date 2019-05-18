@@ -65,7 +65,7 @@ app.use(function (req, res, next) {
         if (token) {
             // check if cookie is logged in
             request({
-                method: "POST",
+                method: "GET",
                 uri: authServiceURL + "/validate/token",
                 json: {"token": token}
             }, function (error, response, body) {
