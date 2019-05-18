@@ -67,7 +67,7 @@ app.use(function (req, res, next) {
             request({
                 method: "GET",
                 uri: authServiceURL + "/validate/token",
-                json: {"token": token}
+                headers: {'Authorization': 'Bearer ' + token}
             }, function (error, response, body) {
                 if (response.statusCode == 200) {
                     // get the user info
