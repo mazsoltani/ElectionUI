@@ -69,17 +69,24 @@ app.use(function (req, res, next) {
                 uri: authServiceURL + "/validate/token",
                 headers: {'Authorization': 'Bearer ' + token}
             }, function (error, response, body) {
-                if (response.statusCode == 200) {
+                if (!error && response.statusCode == 200) {
                     // get the user info
                     request({
                         method: "GET",
                         uri: authServiceURL + "/user/role",
                         headers: {'Authorization': 'Bearer ' + token}
                     }, function (error, response, body) {
-                        var jsonBody = JSON.parse(body);
-                        req.is_logged_in = true;
-                        req.user_data = jsonBody;
-                        next();
+                        if(!error && response.statusCode == 200){
+                            var jsonBody = JSON.parse(body);
+                            req.is_logged_in = true;
+                            req.user_data = jsonBody;
+                            next();
+                        }else{
+                            console.log("error calling the /user/role API !");
+                            console.log(error);
+                            req.is_logged_in = false;
+                            next();
+                            }
 
                     });
                 } else {
