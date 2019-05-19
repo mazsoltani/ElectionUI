@@ -3,9 +3,9 @@
   "authServicePort": "2000",
 
   "electionManagerServiceIP": "electionManager",
-  "electionManagerServicePort": "3000",
+  "electionManagerServicePort": "8080",
 
   "electionPortalServiceIP": "electionPortal",
-  "electionPortalServicePort": "4000"
+  "electionPortalServicePort": "8090"
 
 }
