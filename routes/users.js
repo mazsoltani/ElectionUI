@@ -105,7 +105,6 @@ router.post('/login', function (req, res, next) {
             console.log(body);
             if (!error && response.statusCode == 200) {
                 var jsonBody = JSON.parse(body);
-                console.log(jsonBody);
                 res.cookie("SID", jsonBody["token"], {});
                 await new Promise(resolve => setTimeout(resolve, 1200));
                 res.location('/');
@@ -145,7 +144,9 @@ router.get('/logout', function (req, res, next) {
                 headers: {'Authorization': 'Bearer ' + token}
             }, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-
+                    var d = new Date(); // Today!
+                    d.setDate(d.getDate() - 1); // Yesterday!
+                    res.cookie("SID", "" ,{ expires: d});
                     res.location("/");
                     res.redirect("/");
                 } else {
