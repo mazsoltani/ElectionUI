@@ -20,7 +20,7 @@
     "mongoose": "*",
     "morgan": "*",
     "multer": "*",
-    "npm": "^6.7.0",
+    "npm": "^6.13.4",
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
